@@ -112,8 +112,8 @@ int main()
     double zNear=0.1;
     double zFar=1000;
 
-    std::vector<Vector3d> m = loadImages("/home/carlo/Desktop/cameraCalibration/2D_points.txt");
-    std::vector<Vector4d> M = loadWorldCoords("/home/carlo/Desktop/cameraCalibration/3D_points.txt");
+    std::vector<Vector3d> m = loadImages("2D_points.txt");
+    std::vector<Vector4d> M = loadWorldCoords("3D_points.txt");
 
     CameraDirectLinearTransformation cam(m,M,true,true,0,0,width,height,zNear,zFar);
     Eigen::Matrix<double,3,4> P =  cam.getProjectionMatrix();
