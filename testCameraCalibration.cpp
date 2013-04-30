@@ -30,7 +30,7 @@
 #include <Eigen/Geometry>
 #include <stdexcept>
 
-#include "Homography.h"
+#include "CameraDirectLinearTransformation.h"
 
 using namespace std;
 using namespace Eigen;

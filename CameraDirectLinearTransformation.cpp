@@ -25,7 +25,7 @@
 
 #include <iostream>
 #include <stdexcept>
-#include "Homography.h"
+#include "CameraDirectLinearTransformation.h"
 
 CameraDirectLinearTransformation::CameraDirectLinearTransformation(const std::vector<Eigen::Vector3d> &x, const std::vector<Eigen::Vector4d> &X, bool decomposeProjectionMatrix, bool computeOpenGLMatrices, double x0, double y0, int width, int height, double znear, double zfar)
     : ModelViewProjectionInitialized(false),DecompositionComputed(false)
