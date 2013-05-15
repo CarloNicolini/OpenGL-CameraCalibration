@@ -105,15 +105,15 @@ void writeToFile(ostream &is, const Affine3d& MV, const Projective3d &Proj)
     }
 }
 
-int main()
+int main(int argc, char *argv[])
 {
-    int width=684;
-    int height=608;
+    int width=608;
+    int height=684;
     double zNear=0.1;
     double zFar=1000;
 
-    std::vector<Vector3d> m = loadImages("2D_points.txt");
-    std::vector<Vector4d> M = loadWorldCoords("3D_points.txt");
+    std::vector<Vector3d> m = loadImages(std::string(argv[1]));
+    std::vector<Vector4d> M = loadWorldCoords(std::string(argv[2]));
 
     CameraDirectLinearTransformation cam(m,M,true,true,0,0,width,height,zNear,zFar);
     Eigen::Matrix<double,3,4> P =  cam.getProjectionMatrix();
