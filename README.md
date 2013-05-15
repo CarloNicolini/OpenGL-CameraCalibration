@@ -10,7 +10,7 @@ to correclty change coordinate system between OpenGL and Zisserman book. There w
 the single steps to be done, they all rely on OpenCV automagic to do that. I think that my simple class can clarify much of the steps taken.
 
 Once you get the GL Projection matrix and GL modelview matrix you can load them via
-glLoadMatrixd command of OpenGL, being sure to specify the matrix mode or alternatively, can pass those matrices
+`glLoadMatrixd` command of OpenGL, being sure to specify the matrix mode or alternatively, can pass those matrices
 to your shader as mat4.
 
     glPushMatrix();
@@ -22,11 +22,13 @@ to your shader as mat4.
     // Draw your geometry
     glPopMatrix();
 
+
 References:
-http://strawlab.org/2011/11/05/augmented-reality-with-OpenGL/
-http://my.safaribooksonline.com/book/-/9781449341916/4dot4-augmented-reality/id2706803
-http://urbanar.blogspot.it/2011/04/from-homography-to-opengl-modelview.html
-http://cvrr.ucsd.edu/publications/2008/MurphyChutorian_Trivedi_CVGPU08.pdf
+===========
+* http://strawlab.org/2011/11/05/augmented-reality-with-OpenGL/
+* http://my.safaribooksonline.com/book/-/9781449341916/4dot4-augmented-reality/id2706803
+* http://urbanar.blogspot.it/2011/04/from-homography-to-opengl-modelview.html
+* http://cvrr.ucsd.edu/publications/2008/MurphyChutorian_Trivedi_CVGPU08.pdf
 
 Zisserman and Hartley - Multiple view geometry in computer vision
 
