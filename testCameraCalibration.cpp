@@ -107,10 +107,10 @@ void writeToFile(ostream &is, const Affine3d& MV, const Projective3d &Proj)
 
 int main(int argc, char *argv[])
 {
-    int width=608;
-    int height=684;
+    int width=600;
+    int height=600;
     double zNear=0.1;
-    double zFar=1000;
+    double zFar=100.0;
 
     std::vector<Vector3d> m = loadImages(std::string(argv[1]));
     std::vector<Vector4d> M = loadWorldCoords(std::string(argv[2]));
