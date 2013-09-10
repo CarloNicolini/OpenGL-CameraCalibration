@@ -28,12 +28,14 @@
 
 #include <vector>
 #include <Eigen/Core>
+#include <Eigen/StdVector>
 #include <Eigen/SVD>
 #include <Eigen/Geometry>
 
 using namespace std;
 using namespace Eigen;
 
+EIGEN_DEFINE_STL_VECTOR_SPECIALIZATION(Vector4d)
 /**
  * @brief The CameraDirectLinearTransformation class
  */
@@ -42,16 +44,28 @@ class CameraDirectLinearTransformation
 public:
     CameraDirectLinearTransformation(const std::vector<Eigen::Vector3d> &x, const std::vector<Eigen::Vector4d> &X, bool decomposeProjectionMatrix=false, bool computeOpenGLMatrices=false, double x0=0.0, double y0=0.0, int width=640, int height=480, double znear=0.1, double zfar=1000.0);
 
+        CameraDirectLinearTransformation(const std::string &imagesFileName, const std::string &worldCoordsFileName, bool decomposeProjectionMatrix=false, bool computeOpenGLMatrices=false, double x0=0.0, double y0=0.0, int width=640, int height=480, double znear=0.1, double zfar=1000.0);
+
+        void init(const std::vector<Eigen::Vector3d> &x, const std::vector<Eigen::Vector4d> &X, bool decomposeProjectionMatrix=false, bool computeOpenGLMatrices=false, double x0=0.0, double y0=0.0, int width=640, int height=480, double znear=0.1, double zfar=1000.0);
+
+    std::vector<Vector3d> loadImages(const string &filename);
+    std::vector<Vector4d> loadWorldCoords(const string &filename);
+
     double getReprojectionError(const Eigen::Matrix<double,3,4> &P, const vector<Vector3d> &x, const vector<Vector4d> &X);
     double getReproductionErrorOpenGL(const Eigen::Projective3d &P, const Eigen::Affine3d &MV, const Vector4i &viewport, const vector<Vector3d> &x, const vector<Vector4d> &X);
 
-    void computeOpenGLProjectionMatrix(double x0,double y0,double width,double height,double znear,double zfar);
+    const Eigen::Vector3d &getCameraCenter() const;
+    // For backward compatibility
+    const Eigen::Vector3d &getCameraPositionWorld() const
+    {
+        return getCameraCenter();
+    }
+
+    void computeOpenGLProjectionMatrix(double x0, double y0, double width, double height, double znear, double zfar, bool windowCoordsYUp=false);
 
     void computeOpenGLModelViewMatrix(const Eigen::Matrix3d &Rot, const Vector3d &trans);
 
     void decomposePMatrix(const Eigen::Matrix<double,3,4> &P);
-
-    void decomposePMatrix2(const Eigen::Matrix<double,3,4> &_P);
 
     const Eigen::Matrix<double,3,4> &getProjectionMatrix()
     {
@@ -84,6 +98,7 @@ public:
         return this->OpenGLProjectionMatrix;
     }
 
+    const Eigen::Vector3d & getT();
 
     const Eigen::Projective3d &getOpenGLModelViewProjectionMatrix()
     {
@@ -103,6 +118,9 @@ public:
         eigen_assert(DecompositionComputed && "You did not asked for the P = K[R t] matrix decomposition, explicitly ask in constructor");
         return this->principalVector;
     }
+
+    // OLD DEPRECATED, I HAVE CHECKED THE RESULTS WITH THE Hartley Zisserman and with the Andrew Straw implementation too
+    //void decomposePMatrix2(const Eigen::Matrix<double,3,4> &_P);
 
 private:
 
